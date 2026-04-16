@@ -6,72 +6,39 @@
   'use strict';
 
   /* ════════════════════════════════════
-     DOMAIN CONFIG — edit this list freely
+     DOMAIN CONFIG — edit this list manually
      Add or remove objects to show more/fewer domains.
      Fields:
-       label  — text shown in the pill (usually the domain name)
-       url    — full URL used for the live reachability check
+       label  — domain name shown in the pill
+       status — 'online' or 'offline' (you control this)
   ════════════════════════════════════ */
   var DOMAINS = [
-    { label: 'studentsite.dev',    url: 'https://studentsite.dev' },
-    { label: 'studentsite.online', url: 'https://studentsite.online' },
+    { label: 'studentsite.dev',    status: 'online'  },
+    { label: 'studentsite.online', status: 'online'  },
+    // { label: 'example.com',       status: 'offline' },
   ];
   /* ════════════════════════════════════ */
 
   /* ────────────────────────────────────
-     DOMAIN STATUS — render pills + live-check each domain
+     DOMAIN STATUS — render pills from config
   ──────────────────────────────────── */
   var domainList = document.getElementById('domainStatusList');
 
   function buildDomainPills() {
     if (!domainList || !DOMAINS.length) return;
     DOMAINS.forEach(function (domain) {
+      var status = domain.status === 'offline' ? 'offline' : 'online';
+      var statusText = status === 'online' ? 'online' : 'offline';
       var pill = document.createElement('span');
-      pill.classList.add('domain-pill', 'domain-pill--checking');
+      pill.classList.add('domain-pill', 'domain-pill--' + status);
       pill.setAttribute('role', 'listitem');
-      pill.setAttribute('aria-label', domain.label + ' — checking status');
+      pill.setAttribute('aria-label', domain.label + ' \u2014 ' + statusText);
       pill.innerHTML =
         '<span class="domain-pill__dot" aria-hidden="true"></span>' +
         '<span class="domain-pill__name">' + escapeHTML(domain.label) + '</span>' +
-        '<span class="domain-pill__status">checking\u2026</span>';
+        '<span class="domain-pill__status">' + statusText + '</span>';
       domainList.appendChild(pill);
-
-      checkDomain(domain.url, function (status) {
-        pill.classList.remove('domain-pill--checking');
-        pill.classList.add('domain-pill--' + status);
-        var statusEl = pill.querySelector('.domain-pill__status');
-        var statusText = status === 'online' ? 'online' : 'offline';
-        if (statusEl) statusEl.textContent = statusText;
-        pill.setAttribute('aria-label', domain.label + ' \u2014 ' + statusText);
-      });
     });
-  }
-
-  /**
-   * Probe a URL with fetch mode:'no-cors' + 6s timeout.
-   * Resolves (opaque)  → server responded        → "online"
-   * Rejects (network)  → DNS / connection failed  → "offline"
-   * Rejects (abort)    → timed out               → "offline"
-   *
-   * This works for same-origin and cross-origin alike because no-cors
-   * doesn't read the response — it only fails if the network layer fails.
-   */
-  function checkDomain(url, callback) {
-    if (!('fetch' in window) || !('AbortController' in window)) {
-      callback('offline');
-      return;
-    }
-    var controller = new AbortController();
-    var timer = setTimeout(function () { controller.abort(); }, 6000);
-    fetch(url, { mode: 'no-cors', signal: controller.signal, cache: 'no-store' })
-      .then(function () {
-        clearTimeout(timer);
-        callback('online');
-      })
-      .catch(function () {
-        clearTimeout(timer);
-        callback('offline');
-      });
   }
 
   function escapeHTML(str) {
