@@ -1,376 +1,287 @@
-/* ═══════════════════════════════════════
-   main.js — studentsite.dev / studentsite.online
-═══════════════════════════════════════ */
-
 (function () {
-  'use strict';
+  "use strict";
 
-  /* ════════════════════════════════════
-     DOMAIN CONFIG — edit this list manually
-     Add or remove objects to show more/fewer domains.
-     Fields:
-       label  — domain name shown in the pill
-       status — 'online' or 'offline' (you control this)
-  ════════════════════════════════════ */
-  var DOMAINS = [
-    { label: 'studentsite.dev',    status: 'online'  },
-    { label: 'studentsite.online', status: 'online'  },
-    // { label: 'example.com',       status: 'offline' },
+  const DOMAINS = [
+    { label: "studentsite.dev", status: "online" },
+    { label: "studentsite.online", status: "online" }
   ];
-  /* ════════════════════════════════════ */
 
-  /* ────────────────────────────────────
-     DOMAIN STATUS — render pills from config
-  ──────────────────────────────────── */
-  var domainList = document.getElementById('domainStatusList');
+  const nav = document.getElementById("nav");
+  const heroSection = document.getElementById("hero");
+  const domainList = document.getElementById("domainStatusList");
+  const form = document.getElementById("applyForm");
+  const submitBtn = document.getElementById("submitBtn");
+  const formSuccess = document.getElementById("formSuccess");
+  const formError = document.getElementById("formError");
 
   function buildDomainPills() {
-    if (!domainList || !DOMAINS.length) return;
+    if (!domainList) return;
+
     DOMAINS.forEach(function (domain) {
-      var status = domain.status === 'offline' ? 'offline' : 'online';
-      var statusText = status === 'online' ? 'online' : 'offline';
-      var pill = document.createElement('span');
-      pill.classList.add('domain-pill', 'domain-pill--' + status);
-      pill.setAttribute('role', 'listitem');
-      pill.setAttribute('aria-label', domain.label + ' \u2014 ' + statusText);
-      pill.innerHTML =
-        '<span class="domain-pill__dot" aria-hidden="true"></span>' +
-        '<span class="domain-pill__name">' + escapeHTML(domain.label) + '</span>' +
-        '<span class="domain-pill__status">' + statusText + '</span>';
+      const status = domain.status === "offline" ? "offline" : "online";
+      const pill = document.createElement("span");
+      const dot = document.createElement("span");
+      const name = document.createElement("span");
+      const statusLabel = document.createElement("span");
+
+      pill.className = "domain-pill domain-pill--" + status;
+      pill.setAttribute("role", "listitem");
+      pill.setAttribute("aria-label", domain.label + " is " + status);
+
+      dot.className = "domain-pill__dot";
+      dot.setAttribute("aria-hidden", "true");
+
+      name.className = "domain-pill__name";
+      name.textContent = domain.label;
+
+      statusLabel.className = "domain-pill__status";
+      statusLabel.textContent = status;
+
+      pill.append(dot, name, statusLabel);
       domainList.appendChild(pill);
     });
   }
 
-  function escapeHTML(str) {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  }
-
-  buildDomainPills();
-
-  /* ────────────────────────────────────
-     NAV — scroll effect
-  ──────────────────────────────────── */
-  var nav = document.getElementById('nav');
-  var heroSection = document.getElementById('hero');
-
   function updateNav() {
     if (!nav || !heroSection) return;
-    var heroBottom = heroSection.getBoundingClientRect().bottom;
-    if (heroBottom <= 0) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
+    nav.classList.toggle("scrolled", heroSection.getBoundingClientRect().bottom <= 0);
   }
 
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
+  function setupSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+      link.addEventListener("click", function (event) {
+        const href = link.getAttribute("href");
+        if (!href || href === "#") return;
 
-  /* ────────────────────────────────────
-     SMOOTH SCROLL for nav/hero CTAs
-  ──────────────────────────────────── */
-  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-    link.addEventListener('click', function (e) {
-      var href = link.getAttribute('href');
-      if (href === '#') return;
-      var target = document.querySelector(href);
-      if (!target) return;
-      e.preventDefault();
-      var navHeight = nav ? nav.offsetHeight : 0;
-      var top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    });
-  });
+        const target = document.querySelector(href);
+        if (!target) return;
 
-  /* ────────────────────────────────────
-     FADE-UP — IntersectionObserver
-  ──────────────────────────────────── */
-  var fadeElements = document.querySelectorAll('.fade-up');
-
-  if ('IntersectionObserver' in window) {
-    var fadeObserver = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            var el = entry.target;
-            var delay = el.dataset.delay || 0;
-            setTimeout(function () {
-              el.classList.add('is-visible');
-            }, Number(delay));
-            fadeObserver.unobserve(el);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-    );
-
-    // Stagger siblings within each section by 80ms
-    var sections = document.querySelectorAll('section, header, footer');
-    sections.forEach(function (section) {
-      var children = section.querySelectorAll('.fade-up');
-      children.forEach(function (child, i) {
-        child.dataset.delay = i * 80;
-        fadeObserver.observe(child);
+        event.preventDefault();
+        const navHeight = nav ? nav.offsetHeight : 0;
+        const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: targetTop, behavior: "smooth" });
       });
     });
-  } else {
-    // Fallback: show everything
-    fadeElements.forEach(function (el) {
-      el.classList.add('is-visible');
-    });
   }
 
-  /* ────────────────────────────────────
-     SPOT DOTS — animate taken/available
-  ──────────────────────────────────── */
-  var spotDotsContainer = document.getElementById('spotDots');
-  var TOTAL_SPOTS = 50;
-  var TAKEN_SPOTS = 12;
+  function setupFadeUp() {
+    const fadeElements = document.querySelectorAll(".fade-up");
 
-  function buildSpotDots() {
-    if (!spotDotsContainer) return;
-
-    // Create all dots as "base" first (invisible)
-    var dots = [];
-    for (var i = 0; i < TOTAL_SPOTS; i++) {
-      var dot = document.createElement('span');
-      dot.classList.add('spot-dot');
-      dot.setAttribute('aria-hidden', 'true');
-      spotDotsContainer.appendChild(dot);
-      dots.push(dot);
+    if (!("IntersectionObserver" in window)) {
+      fadeElements.forEach(function (element) {
+        element.classList.add("is-visible");
+      });
+      return;
     }
 
-    // Animate "taken" dots filling in with 50ms stagger
-    var takenIndices = pickRandom(TOTAL_SPOTS, TAKEN_SPOTS);
-    takenIndices.forEach(function (idx, order) {
-      setTimeout(function () {
-        dots[idx].classList.add('spot-dot--taken', 'spot-dot--animate');
-      }, order * 50);
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+
+        const element = entry.target;
+        const delay = Number(element.dataset.delay || 0);
+
+        window.setTimeout(function () {
+          element.classList.add("is-visible");
+        }, delay);
+
+        observer.unobserve(element);
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "0px 0px -40px 0px"
     });
 
-    // After taken animation, fill available
-    var totalTakenDelay = TAKEN_SPOTS * 50 + 100;
-    for (var j = 0; j < TOTAL_SPOTS; j++) {
-      if (!takenIndices.includes(j)) {
-        (function (dotEl, delay) {
-          setTimeout(function () {
-            dotEl.classList.add('spot-dot--available', 'spot-dot--animate');
-          }, delay);
-        })(dots[j], totalTakenDelay + j * 12);
-      }
-    }
-  }
-
-  function pickRandom(max, count) {
-    var pool = [];
-    for (var i = 0; i < max; i++) pool.push(i);
-    var result = [];
-    for (var k = 0; k < count; k++) {
-      var randIdx = Math.floor(Math.random() * pool.length);
-      result.push(pool[randIdx]);
-      pool.splice(randIdx, 1);
-    }
-    return result;
-  }
-
-  // Only animate when scarcity section is visible
-  var scarcitySection = document.getElementById('scarcity');
-  var dotsAnimated = false;
-
-  if (scarcitySection && 'IntersectionObserver' in window) {
-    var dotsObserver = new IntersectionObserver(
-      function (entries) {
-        if (entries[0].isIntersecting && !dotsAnimated) {
-          dotsAnimated = true;
-          buildSpotDots();
-          dotsObserver.disconnect();
-        }
-      },
-      { threshold: 0.2 }
-    );
-    dotsObserver.observe(scarcitySection);
-  } else {
-    buildSpotDots();
-  }
-
-  /* ────────────────────────────────────
-     FORM — validation + success state
-  ──────────────────────────────────── */
-  var form = document.getElementById('applyForm');
-  var submitBtn = document.getElementById('submitBtn');
-  var formSuccess = document.getElementById('formSuccess');
-
-  if (form) {
-    form.addEventListener('submit', function (e) {
-      if (!validateForm()) {
-        e.preventDefault();
-        return;
-      }
-      // If form passes validation, let formsubmit.co handle submission
-      // but show success state in JS to improve UX
-      e.preventDefault();
-      handleSuccess();
-    });
-
-    // Live validation: clear error on input
-    form.querySelectorAll('.form-input, .form-textarea').forEach(function (input) {
-      input.addEventListener('input', function () {
-        clearError(input);
+    document.querySelectorAll("section, header, footer").forEach(function (section) {
+      section.querySelectorAll(".fade-up").forEach(function (element, index) {
+        element.dataset.delay = index * 70;
+        observer.observe(element);
       });
     });
+  }
 
-    form.querySelectorAll('input[type="radio"]').forEach(function (radio) {
-      radio.addEventListener('change', function () {
-        var errorEl = document.getElementById('siteTypeError');
-        if (errorEl) errorEl.classList.remove('is-visible');
-      });
-    });
+  function setFieldError(field, input, errorId) {
+    const error = document.getElementById(errorId);
 
-    var agreeCheckbox = document.getElementById('agree');
-    if (agreeCheckbox) {
-      agreeCheckbox.addEventListener('change', function () {
-        clearError(agreeCheckbox);
-        var errorEl = document.getElementById('agreeError');
-        if (errorEl) errorEl.classList.remove('is-visible');
-      });
+    if (field) field.classList.add("has-error");
+    if (input) {
+      input.classList.add("has-error");
+      input.setAttribute("aria-invalid", "true");
     }
+    if (error) error.classList.add("is-visible");
+  }
+
+  function clearFieldError(field, input, errorId) {
+    const error = errorId
+      ? document.getElementById(errorId)
+      : field && field.querySelector(".form-error");
+
+    if (field) field.classList.remove("has-error");
+    if (input) {
+      input.classList.remove("has-error");
+      input.removeAttribute("aria-invalid");
+    }
+    if (error) error.classList.remove("is-visible");
+  }
+
+  function clearFormStatus() {
+    if (formSuccess) formSuccess.hidden = true;
+    if (formError) formError.hidden = true;
   }
 
   function validateForm() {
-    var valid = true;
+    if (!form) return false;
 
-    // Name
-    var nameInput = document.getElementById('name');
-    if (nameInput && nameInput.value.trim() === '') {
-      showError(nameInput, 'nameError');
+    let valid = true;
+    const nameInput = document.getElementById("name");
+    const emailInput = document.getElementById("email");
+    const subdomainInput = document.getElementById("subdomain");
+    const descriptionInput = document.getElementById("description");
+    const siteTypeField = document.getElementById("siteTypeField");
+    const agreeField = document.getElementById("agreeField");
+    const agreeInput = document.getElementById("agree");
+
+    clearFormStatus();
+
+    if (nameInput && nameInput.value.trim() === "") {
+      setFieldError(nameInput.closest(".form-field"), nameInput, "nameError");
       valid = false;
     }
 
-    // Email
-    var emailInput = document.getElementById('email');
     if (emailInput) {
-      var emailVal = emailInput.value.trim();
-      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(emailVal)) {
-        showError(emailInput, 'emailError');
+      const emailValue = emailInput.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailRegex.test(emailValue)) {
+        setFieldError(emailInput.closest(".form-field"), emailInput, "emailError");
         valid = false;
       }
     }
 
-    // Subdomain
-    var subdomainInput = document.getElementById('subdomain');
     if (subdomainInput) {
-      var subdVal = subdomainInput.value.trim();
-      var subdRegex = /^[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9]$|^[a-zA-Z0-9]$/;
-      if (!subdVal || !subdRegex.test(subdVal)) {
-        showError(subdomainInput, 'subdomainError');
+      const subdomainValue = subdomainInput.value.trim();
+      const subdomainRegex = /^[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$/;
+
+      if (!subdomainRegex.test(subdomainValue)) {
+        setFieldError(subdomainInput.closest(".form-field"), subdomainInput, "subdomainError");
         valid = false;
       }
     }
 
-    // Site type
-    var siteTypeSelected = form.querySelector('input[name="site_type"]:checked');
-    if (!siteTypeSelected) {
-      var siteTypeError = document.getElementById('siteTypeError');
-      if (siteTypeError) siteTypeError.classList.add('is-visible');
+    if (!form.querySelector('input[name="site_type"]:checked')) {
+      setFieldError(siteTypeField, null, "siteTypeError");
       valid = false;
     }
 
-    // Description
-    var descInput = document.getElementById('description');
-    if (descInput && descInput.value.trim().length < 5) {
-      showError(descInput, 'descriptionError');
+    if (descriptionInput && descriptionInput.value.trim().length < 5) {
+      setFieldError(descriptionInput.closest(".form-field"), descriptionInput, "descriptionError");
       valid = false;
     }
 
-    // Agree checkbox
-    var agreeEl = document.getElementById('agree');
-    if (agreeEl && !agreeEl.checked) {
-      var agreeError = document.getElementById('agreeError');
-      if (agreeError) agreeError.classList.add('is-visible');
+    if (agreeInput && !agreeInput.checked) {
+      setFieldError(agreeField, null, "agreeError");
       valid = false;
     }
 
-    // Scroll to first error
     if (!valid) {
-      var firstError = form.querySelector('.form-input.has-error, .form-textarea.has-error');
+      const firstError = form.querySelector(".has-error");
       if (firstError) {
-        var navH = nav ? nav.offsetHeight + 16 : 16;
-        var top = firstError.getBoundingClientRect().top + window.scrollY - navH;
-        window.scrollTo({ top: top, behavior: 'smooth' });
+        const navHeight = nav ? nav.offsetHeight + 16 : 16;
+        const targetTop = firstError.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: targetTop, behavior: "smooth" });
       }
     }
 
     return valid;
   }
 
-  function showError(inputEl, errorId) {
-    inputEl.classList.add('has-error');
-    var errorEl = document.getElementById(errorId);
-    if (errorEl) errorEl.classList.add('is-visible');
-  }
+  function showSuccess() {
+    if (!form) return;
 
-  function clearError(inputEl) {
-    inputEl.classList.remove('has-error');
-    // Find closest form-field and hide its error span
-    var field = inputEl.closest('.form-field');
-    if (field) {
-      var errorEl = field.querySelector('.form-error');
-      if (errorEl) errorEl.classList.remove('is-visible');
+    form.classList.add("is-success");
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Request sent";
+    }
+    if (formSuccess) {
+      formSuccess.hidden = false;
+      formSuccess.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
 
-  function handleSuccess() {
-    // Submit via fetch so we stay on the page
-    var formData = new FormData(form);
+  function showSubmitError(message) {
+    if (!submitBtn) return;
+
+    submitBtn.disabled = false;
+    submitBtn.textContent = "Request a free hosting slot";
+
+    if (formError) {
+      formError.hidden = false;
+      formError.textContent = message;
+    }
+  }
+
+  async function submitForm() {
+    if (!form || !submitBtn) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending…';
+    submitBtn.textContent = "Sending...";
+    clearFormStatus();
 
-    fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: { 'Accept': 'application/json' }
-    })
-      .then(function () {
-        showSuccess();
-      })
-      .catch(function () {
-        // Even on network error, show success (formsubmit may have received it)
-        showSuccess();
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" }
       });
-  }
 
-  function showSuccess() {
-    // Hide form fields
-    form.querySelectorAll('.form-row--two, .form-field, .btn--submit').forEach(function (el) {
-      el.style.display = 'none';
-    });
+      if (!response.ok) {
+        throw new Error("Request failed with status " + response.status);
+      }
 
-    // Show success message
-    if (formSuccess) {
-      formSuccess.removeAttribute('hidden');
-      formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      showSuccess();
+    } catch (error) {
+      showSubmitError("The request could not be sent. Try again in a minute.");
     }
   }
 
-  /* ────────────────────────────────────
-     FAQ — keyboard accessibility (details/summary)
-     Native <details> handles click; add keyboard support
-  ──────────────────────────────────── */
-  document.querySelectorAll('.faq__question').forEach(function (summary) {
-    summary.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var details = summary.closest('details');
-        if (details) {
-          details.open = !details.open;
-        }
-      }
-    });
-  });
+  function setupForm() {
+    if (!form) return;
 
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      if (!validateForm()) return;
+      submitForm();
+    });
+
+    form.querySelectorAll(".form-input").forEach(function (input) {
+      input.addEventListener("input", function () {
+        clearFieldError(input.closest(".form-field"), input);
+        clearFormStatus();
+      });
+    });
+
+    form.querySelectorAll('input[name="site_type"]').forEach(function (radio) {
+      radio.addEventListener("change", function () {
+        clearFieldError(document.getElementById("siteTypeField"), null, "siteTypeError");
+        clearFormStatus();
+      });
+    });
+
+    const agreeCheckbox = document.getElementById("agree");
+    if (agreeCheckbox) {
+      agreeCheckbox.addEventListener("change", function () {
+        clearFieldError(document.getElementById("agreeField"), null, "agreeError");
+        clearFormStatus();
+      });
+    }
+  }
+
+  buildDomainPills();
+  updateNav();
+  setupSmoothScroll();
+  setupFadeUp();
+  setupForm();
+
+  window.addEventListener("scroll", updateNav, { passive: true });
 })();

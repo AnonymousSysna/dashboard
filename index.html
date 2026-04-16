@@ -3,234 +3,210 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Get a free subdomain and hosting spot — Static, PHP, or WordPress. 50 spots, no cost, no catch.">
-  <title>Free Hosting (limited)</title>
-
-  <meta property="og:title" content="Free Hosting Spots — studentsite.dev-online">
-  <meta property="og:description" content="Get a free subdomain and hosting spot — Static, PHP, or WordPress. 50 spots, no cost, no catch.">
+  <meta
+    name="description"
+    content="Free student project hosting on studentsite.dev or studentsite.online. Choose static, PHP, or WordPress and get a manual setup reply within 24 to 48 hours."
+  >
+  <title>Free Student Hosting | studentsite</title>
+  <meta property="og:title" content="Free Student Hosting | studentsite">
+  <meta
+    property="og:description"
+    content="I host one student project for free on studentsite.dev or studentsite.online. Static, PHP, and WordPress setups are available."
+  >
   <meta property="og:type" content="website">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- ── NAV ── -->
   <header class="nav" id="nav">
     <div class="nav__inner container">
       <a href="#" class="nav__logo">studentsite</a>
-      <a href="#apply" class="btn btn--primary btn--sm nav__cta">Claim Your Spot →</a>
+      <a href="#apply" class="btn btn--primary btn--sm">Request a free hosting slot</a>
     </div>
   </header>
 
-  <!-- ── HERO ── -->
   <section class="hero" id="hero">
-    <div class="hero__bg" aria-hidden="true">
-      <div class="hero__mesh"></div>
-      <div class="particle-grid" id="particleGrid"></div>
-    </div>
     <div class="container hero__content">
-      <div class="badge fade-up">
-        <span class="badge__dot" aria-hidden="true"></span>
-        50 Free Spots · Limited Availability
-      </div>
-      <h1 class="hero__h1 fade-up">Get Your Website Live —<br>For Free</h1>
+      <p class="badge fade-up">Student project hosting on studentsite.dev and studentsite.online</p>
+      <h1 class="hero__h1 fade-up">
+        I&apos;ll host one student project for free on a studentsite.dev or studentsite.online subdomain.
+      </h1>
       <p class="hero__sub fade-up">
-        Hosting costs shouldn't be the reason you haven't started.<br>
-        Pick your subdomain, choose your stack, and launch.
+        Choose static, PHP, or WordPress. I usually set it up within 24 to 48 hours and send the access details after I confirm availability.
       </p>
+
       <div class="hero__btns fade-up">
-        <a href="#apply" class="btn btn--primary btn--lg">Claim a Free Spot →</a>
-        <a href="#plans" class="btn btn--ghost btn--lg">See What's Included ↓</a>
+        <a href="#apply" class="btn btn--primary btn--lg">Request a free hosting slot</a>
+        <a href="#limits" class="btn btn--ghost btn--lg">Read hosting limits</a>
       </div>
-      <div class="hero__stats fade-up">
-        <span class="hero__stat">
-          <span class="hero__stat-dot" aria-hidden="true"></span>
-          50 Spots Available
-        </span>
-        <span class="hero__divider" aria-hidden="true">|</span>
-        <span class="hero__stat">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <path d="M7 1L8.5 5.5H13L9.5 8.5L10.5 13L7 10.5L3.5 13L4.5 8.5L1 5.5H5.5L7 1Z" fill="#6c63ff"/>
-          </svg>
-          3 Site Types
-        </span>
-        <span class="hero__divider" aria-hidden="true">|</span>
-        <span class="hero__stat">
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-            <rect x="2" y="6" width="10" height="7" rx="1.5" stroke="#6c63ff" stroke-width="1.5"/>
-            <path d="M4.5 6V4a2.5 2.5 0 0 1 5 0v2" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          No Credit Card
-        </span>
-      </div>
+
+      <dl class="hero__facts fade-up">
+        <div class="hero__fact">
+          <dt>Setup time</dt>
+          <dd>Usually 24 to 48 hours</dd>
+        </div>
+        <div class="hero__fact">
+          <dt>File access</dt>
+          <dd>FTP for static and PHP projects</dd>
+        </div>
+        <div class="hero__fact">
+          <dt>WordPress</dt>
+          <dd>Installed for you with your own admin account</dd>
+        </div>
+      </dl>
     </div>
   </section>
 
-  <!-- ── DOMAIN STATUS BAR ── -->
   <div class="domains-bar" id="domainsBar">
     <div class="container domains-bar__inner">
-      <span class="domains-bar__label">Subdomains available on</span>
-      <div class="domains-bar__list" id="domainStatusList" role="list" aria-label="Domain availability status">
-        <!-- populated by main.js — edit DOMAINS array there to add/remove entries -->
-      </div>
+      <span class="domains-bar__label">Current domain status</span>
+      <div class="domains-bar__list" id="domainStatusList" role="list" aria-label="Domain availability status"></div>
     </div>
   </div>
 
-  <!-- ── HOW IT WORKS ── -->
-  <section class="how section" id="how">
+  <section class="section" id="how">
     <div class="container">
-      <p class="section-label fade-up">Simple Process</p>
-      <h2 class="section-h2 fade-up">From zero to online in three steps</h2>
-      <div class="how__grid">
+      <p class="section-label fade-up">How Requests Work</p>
+      <h2 class="section-h2 fade-up">Three real steps</h2>
+      <p class="section-intro fade-up">
+        Send the request once. I confirm availability before I provision anything.
+      </p>
 
-        <article class="how__card fade-up">
-          <span class="how__num">01</span>
-          <div class="how__icon" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="4" y="10" width="20" height="4" rx="2" fill="rgba(108,99,255,0.3)" stroke="#6c63ff" stroke-width="1.5"/>
-              <rect x="4" y="16" width="20" height="4" rx="2" fill="rgba(108,99,255,0.15)" stroke="#6c63ff" stroke-width="1.5"/>
-              <rect x="4" y="4" width="20" height="4" rx="2" fill="rgba(108,99,255,0.15)" stroke="#6c63ff" stroke-width="1.5"/>
-            </svg>
+      <ol class="process-list">
+        <li class="process-item card fade-up">
+          <span class="process-item__num">1</span>
+          <div>
+            <h3 class="process-item__title">Send your requested subdomain and site type.</h3>
+            <p class="process-item__text">Tell me the name you want and whether the project is static, PHP, or WordPress.</p>
           </div>
-          <h3 class="how__title">Pick Your Plan</h3>
-          <p class="how__text">Choose from Static, PHP, or WordPress — whatever fits what you're building.</p>
-        </article>
-
-        <article class="how__card fade-up">
-          <span class="how__num">02</span>
-          <div class="how__icon" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="10" stroke="#6c63ff" stroke-width="1.5"/>
-              <ellipse cx="14" cy="14" rx="4" ry="10" stroke="#6c63ff" stroke-width="1.5"/>
-              <line x1="4" y1="14" x2="24" y2="14" stroke="#6c63ff" stroke-width="1.5"/>
-              <line x1="14" y1="4" x2="14" y2="24" stroke="#6c63ff" stroke-width="1.5"/>
-            </svg>
+        </li>
+        <li class="process-item card fade-up">
+          <span class="process-item__num">2</span>
+          <div>
+            <h3 class="process-item__title">I confirm availability.</h3>
+            <p class="process-item__text">If the subdomain is free and the project fits the shared server, I reply and start the setup.</p>
           </div>
-          <h3 class="how__title">Claim Your Subdomain</h3>
-          <p class="how__text">You get yourname.studentsite.dev or .online — clean, separate, and all yours.</p>
-        </article>
-
-        <article class="how__card fade-up">
-          <span class="how__num">03</span>
-          <div class="how__icon" aria-hidden="true">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M4 6h20v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6Z" stroke="#6c63ff" stroke-width="1.5" fill="rgba(108,99,255,0.1)"/>
-              <path d="M4 6l10 9 10-9" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+        </li>
+        <li class="process-item card fade-up">
+          <span class="process-item__num">3</span>
+          <div>
+            <h3 class="process-item__title">I send your access details.</h3>
+            <p class="process-item__text">Static and PHP sites get FTP access. WordPress sites get a ready install and your admin login.</p>
           </div>
-          <h3 class="how__title">Send a Message</h3>
-          <p class="how__text">Drop a quick message with what you want to build. That's it — no forms, no payment.</p>
-        </article>
-
-      </div>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- ── PLANS ── -->
-  <section class="plans section" id="plans">
+  <section class="section plans" id="plans">
     <div class="container">
-      <p class="section-label fade-up">What You Get</p>
-      <h2 class="section-h2 fade-up">Three options. All free.</h2>
+      <p class="section-label fade-up">Hosting Options</p>
+      <h2 class="section-h2 fade-up">Choose the setup that matches your project</h2>
+      <p class="section-intro fade-up">
+        The difference between these options is workflow, not price. Everything here is free.
+      </p>
 
-      <div class="plans__grid">
-
-        <article class="plan-card fade-up">
-          <div class="plan-card__badge">HTML / CSS / JS</div>
-          <h3 class="plan-card__title">Static Site</h3>
-          <ul class="plan-card__features">
-            <li><span class="check" aria-hidden="true">✓</span> FTP access to your files</li>
-            <li><span class="check" aria-hidden="true">✓</span> Custom subdomain</li>
-            <li><span class="check" aria-hidden="true">✓</span> Deploy any static project</li>
-            <li><span class="check" aria-hidden="true">✓</span> Great for portfolios &amp; landing pages</li>
-          </ul>
-          <p class="plan-card__best"><strong>Best for:</strong> Beginners, portfolios, simple projects</p>
-          <a href="#apply" class="btn btn--ghost btn--full">Get Started →</a>
-        </article>
-
-        <article class="plan-card plan-card--highlight fade-up">
-          <div class="plan-card__badges-row">
-            <div class="plan-card__badge">PHP + FTP</div>
-            <div class="plan-card__popular">Popular</div>
-          </div>
-          <h3 class="plan-card__title">PHP Site</h3>
-          <ul class="plan-card__features">
-            <li><span class="check" aria-hidden="true">✓</span> Custom PHP project support</li>
-            <li><span class="check" aria-hidden="true">✓</span> FTP access</li>
-            <li><span class="check" aria-hidden="true">✓</span> Custom subdomain</li>
-            <li><span class="check" aria-hidden="true">✓</span> MySQL available on request</li>
-          </ul>
-          <p class="plan-card__best"><strong>Best for:</strong> Developers learning PHP or small custom apps</p>
-          <a href="#apply" class="btn btn--primary btn--full">Get Started →</a>
-        </article>
-
-        <article class="plan-card fade-up">
-          <div class="plan-card__badge">WordPress</div>
-          <h3 class="plan-card__title">WordPress</h3>
-          <ul class="plan-card__features">
-            <li><span class="check" aria-hidden="true">✓</span> Full WordPress install handled for you</li>
-            <li><span class="check" aria-hidden="true">✓</span> Your own admin account</li>
-            <li><span class="check" aria-hidden="true">✓</span> Custom subdomain</li>
-            <li><span class="check" aria-hidden="true">✓</span> Themes &amp; plugins: your call</li>
-          </ul>
-          <p class="plan-card__best"><strong>Best for:</strong> Blogs, portfolios, content sites</p>
-          <a href="#apply" class="btn btn--ghost btn--full">Get Started →</a>
-        </article>
-
-      </div>
-
-      <div class="plans__disclaimer fade-up">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" class="plans__disclaimer-icon">
-          <circle cx="9" cy="9" r="8" stroke="#9a9ab0" stroke-width="1.5"/>
-          <line x1="9" y1="8" x2="9" y2="13" stroke="#9a9ab0" stroke-width="1.5" stroke-linecap="round"/>
-          <circle cx="9" cy="5.5" r="0.75" fill="#9a9ab0"/>
-        </svg>
-        <p class="plans__disclaimer-text">
-          <strong>Not suited for:</strong> video hosting · high-traffic sites · large ecommerce · adult or gambling content<br>
-          Sites inactive 60–90 days may be removed. DNS and server settings stay with the host.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── SCARCITY BANNER ── -->
-  <section class="scarcity section" id="scarcity" aria-label="Availability counter">
-    <div class="container">
-      <div class="scarcity__inner fade-up">
-        <p class="scarcity__main">Only 50 spots total. One per person. First come, first served.</p>
-        <p class="scarcity__sub">This isn't a waiting list — spots go to whoever messages first.</p>
-        <div class="scarcity__dots" id="spotDots" role="img" aria-label="Spot availability visualization: approximately 38 of 50 spots remaining">
-          <!-- JS will populate these -->
+      <div class="comparison card fade-up">
+        <div class="comparison__scroll">
+          <table class="comparison__table">
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                <th scope="col">Static</th>
+                <th scope="col">PHP</th>
+                <th scope="col">WordPress</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Setup</th>
+                <td>You upload HTML, CSS, JS, or a static build.</td>
+                <td>I create the site and you upload your PHP project.</td>
+                <td>I install WordPress and create your admin account.</td>
+              </tr>
+              <tr>
+                <th scope="row">File access</th>
+                <td>FTP access included.</td>
+                <td>FTP access included.</td>
+                <td>WordPress admin access. No direct FTP by default.</td>
+              </tr>
+              <tr>
+                <th scope="row">Database</th>
+                <td>None.</td>
+                <td>MySQL can be enabled if the project needs it.</td>
+                <td>Included as part of the install.</td>
+              </tr>
+              <tr>
+                <th scope="row">Who it suits</th>
+                <td>Portfolios, class assignments, and small frontend projects.</td>
+                <td>Students learning PHP or building a simple app.</td>
+                <td>Blogs, portfolios, and content-heavy project sites.</td>
+              </tr>
+              <tr>
+                <th scope="row">Limits</th>
+                <td>No large file hosting or heavy traffic workloads.</td>
+                <td>No long-running jobs or resource-heavy apps.</td>
+                <td>No plugin stacks that overload the shared server.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <p class="scarcity__label">~38 spots remaining <span class="scarcity__note">(illustrative)</span></p>
-        <a href="#apply" class="btn btn--primary btn--lg scarcity__cta">Claim Your Spot →</a>
+      </div>
+
+      <div class="plans__footer fade-up">
+        <div class="notice">
+          <p>
+            <strong>Not suited for:</strong> video hosting, high-traffic sites, large ecommerce, adult content, or gambling content. Sites inactive for 60 to 90 days may be removed.
+          </p>
+        </div>
+        <a href="#apply" class="btn btn--primary btn--lg">Request a free hosting slot</a>
       </div>
     </div>
   </section>
 
-  <!-- ── APPLY ── -->
-  <section class="apply section" id="apply">
+  <section class="section" id="limits">
     <div class="container">
-      <h2 class="section-h2 fade-up">Ready to claim your spot?</h2>
-      <p class="apply__sub fade-up">Tell me what you're building and which plan fits. I'll get back to you.</p>
+      <div class="availability card fade-up">
+        <p class="section-label">Availability</p>
+        <h2 class="section-h2">I&apos;m opening 50 free slots in this batch.</h2>
+        <p class="availability__text">
+          Availability is updated manually. One site per person. If the batch is full, I will tell you before setup starts.
+        </p>
+        <ul class="availability__list">
+          <li>Personal and educational use only.</li>
+          <li>Custom domains are not available right now.</li>
+          <li>DNS and server-level settings stay on my side.</li>
+        </ul>
+        <a href="#apply" class="btn btn--primary btn--lg">Request a free hosting slot</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="apply">
+    <div class="container">
+      <p class="section-label fade-up">Request Form</p>
+      <h2 class="section-h2 fade-up">Request a free hosting slot</h2>
+      <p class="apply__sub fade-up">
+        Send your name, email, requested subdomain, and project type. I will reply to confirm availability or ask one follow-up if something is unclear.
+      </p>
 
       <div class="apply__wrap fade-up">
         <form
-          class="apply__form"
+          class="apply__form card"
           id="applyForm"
           action="https://formsubmit.co/markstepback01@gmail.com"
           method="POST"
           novalidate
         >
-          <input type="hidden" name="_subject" value="New Hosting Spot Request">
+          <input type="hidden" name="_subject" value="New Hosting Slot Request">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" value="#apply">
 
-          <div class="form-row form-row--two">
+          <div class="form-step form-row--two">
             <div class="form-field">
-              <label for="name" class="form-label">Your Name</label>
+              <label for="name" class="form-label">Your name</label>
               <input
                 type="text"
                 id="name"
@@ -242,8 +218,9 @@
               >
               <span class="form-error" id="nameError">Please enter your name.</span>
             </div>
+
             <div class="form-field">
-              <label for="email" class="form-label">Email Address</label>
+              <label for="email" class="form-label">Email address</label>
               <input
                 type="email"
                 id="email"
@@ -253,178 +230,154 @@
                 required
                 autocomplete="email"
               >
-              <span class="form-error" id="emailError">Please enter a valid email.</span>
+              <span class="form-error" id="emailError">Please enter a valid email address.</span>
             </div>
           </div>
 
-          <div class="form-field">
-            <label for="subdomain" class="form-label">Subdomain You Want</label>
+          <div class="form-step form-field">
+            <label for="subdomain" class="form-label">Requested subdomain</label>
             <div class="form-input-wrap">
               <input
                 type="text"
                 id="subdomain"
                 name="subdomain"
                 class="form-input form-input--subdomain"
-                placeholder="e.g. yourname or myproject"
+                placeholder="yourname or myproject"
                 required
                 autocomplete="off"
                 pattern="[a-zA-Z0-9\-]+"
               >
               <span class="form-suffix">.studentsite.dev or .online</span>
             </div>
-            <span class="form-error" id="subdomainError">Please enter a subdomain (letters, numbers, hyphens only).</span>
+            <span class="form-error" id="subdomainError">Use letters, numbers, or hyphens only.</span>
           </div>
 
-          <div class="form-field">
-            <p class="form-label" id="siteTypeLabel">Site Type</p>
+          <div class="form-step form-field" id="siteTypeField">
+            <p class="form-label" id="siteTypeLabel">Site type</p>
             <div class="pill-toggle" role="radiogroup" aria-labelledby="siteTypeLabel">
               <label class="pill-toggle__option">
                 <input type="radio" name="site_type" value="Static" required>
-                <span>Static</span>
+                <span class="selection-control">Static</span>
               </label>
               <label class="pill-toggle__option">
                 <input type="radio" name="site_type" value="PHP">
-                <span>PHP</span>
+                <span class="selection-control">PHP</span>
               </label>
               <label class="pill-toggle__option">
                 <input type="radio" name="site_type" value="WordPress">
-                <span>WordPress</span>
+                <span class="selection-control">WordPress</span>
               </label>
             </div>
             <span class="form-error" id="siteTypeError">Please select a site type.</span>
           </div>
 
-          <div class="form-field">
+          <div class="form-step form-field">
             <label for="description" class="form-label">What are you building?</label>
             <textarea
               id="description"
               name="description"
               class="form-input form-textarea"
               rows="4"
-              placeholder="Tell me a bit about your project — what it does, what you're learning, or what you want to build."
+              placeholder="Briefly describe the project, what it is for, and anything you need from the setup."
               required
             ></textarea>
-            <span class="form-error" id="descriptionError">Please describe what you're building.</span>
+            <span class="form-error" id="descriptionError">Please add a short project description.</span>
           </div>
 
-          <div class="form-field form-field--check">
+          <div class="form-step form-field form-field--check" id="agreeField">
             <label class="form-checkbox">
               <input type="checkbox" name="agree" id="agree" required>
               <span class="form-checkbox__box" aria-hidden="true"></span>
-              <span class="form-checkbox__text">I agree this is for personal or educational use only.</span>
+              <span class="form-checkbox__text">I understand this is for personal or educational use on a shared server.</span>
             </label>
-            <span class="form-error" id="agreeError">You must agree to continue.</span>
+            <span class="form-error" id="agreeError">You need to confirm the shared-server usage rules.</span>
           </div>
 
-          <button type="submit" class="btn btn--primary btn--full btn--submit" id="submitBtn">
-            Send My Request →
-          </button>
-
-          <div class="form-success" id="formSuccess" aria-live="polite" hidden>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <circle cx="10" cy="10" r="9" fill="rgba(34,197,94,0.15)" stroke="#22c55e" stroke-width="1.5"/>
-              <path d="M6 10l3 3 5-5" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            Message sent! I'll be in touch soon.
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary btn--full btn--submit" id="submitBtn">
+              Request a free hosting slot
+            </button>
+            <p class="form-status form-status--error" id="formError" aria-live="polite" hidden>
+              The request could not be sent. Try again in a minute.
+            </p>
           </div>
+
+          <p class="form-status form-status--success" id="formSuccess" aria-live="polite" hidden>
+            Request sent. I will review it and reply if the slot and subdomain are available.
+          </p>
         </form>
       </div>
     </div>
   </section>
 
-  <!-- ── FAQ ── -->
-  <section class="faq section" id="faq">
+  <section class="section faq" id="faq">
     <div class="container">
-      <h2 class="section-h2 fade-up">Quick answers</h2>
+      <p class="section-label fade-up">FAQ</p>
+      <h2 class="section-h2 fade-up">Questions before you request</h2>
+
       <div class="faq__list">
-
         <details class="faq__item fade-up">
           <summary class="faq__question">
-            Is this actually free? No hidden costs?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            Is this actually free?
+            <span class="faq__arrow" aria-hidden="true"></span>
           </summary>
           <div class="faq__answer">
-            <p>Yes, completely free. No credit card, no trial period, no upsell. I'm sharing my existing hosting setup at no cost to you.</p>
-          </div>
-        </details>
-
-        <details class="faq__item fade-up">
-          <summary class="faq__question">
-            What's the catch?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </summary>
-          <div class="faq__answer">
-            <p>No catch. I'm covering the hosting cost myself. The only limits are the ones listed (content policy, inactivity, no heavy traffic). This is a personal project, not a business.</p>
+            <p>Yes. There is no fee, no trial, and no upsell. I am sharing spare capacity on my existing hosting setup.</p>
           </div>
         </details>
 
         <details class="faq__item fade-up">
           <summary class="faq__question">
             How long does setup take?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <span class="faq__arrow" aria-hidden="true"></span>
           </summary>
           <div class="faq__answer">
-            <p>Usually within 24–48 hours after you message me, depending on my schedule.</p>
+            <p>Usually 24 to 48 hours, depending on my schedule and how complete the request is.</p>
           </div>
         </details>
 
         <details class="faq__item fade-up">
           <summary class="faq__question">
             Can I use a custom domain?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <span class="faq__arrow" aria-hidden="true"></span>
           </summary>
           <div class="faq__answer">
-            <p>Not at this time. You get a subdomain on studentsite.dev or studentsite.online. DNS is managed on my end.</p>
+            <p>Not right now. The offer is limited to subdomains on studentsite.dev and studentsite.online.</p>
           </div>
         </details>
 
         <details class="faq__item fade-up">
           <summary class="faq__question">
-            What happens if my site gets too much traffic?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            What happens if the project outgrows the server?
+            <span class="faq__arrow" aria-hidden="true"></span>
           </summary>
           <div class="faq__answer">
-            <p>I'll reach out first. If it's consistently overloading the shared server, we may need to take it down. This isn't designed for viral or high-traffic use cases.</p>
+            <p>I will contact you first. If the project needs more resources than the shared server can handle, you will need to move it elsewhere.</p>
           </div>
         </details>
 
         <details class="faq__item fade-up">
           <summary class="faq__question">
-            Can I transfer my site to my own hosting later?
-            <svg class="faq__arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="#6c63ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            Can I move the site later?
+            <span class="faq__arrow" aria-hidden="true"></span>
           </summary>
           <div class="faq__answer">
-            <p>Yes. Static and PHP sites can be downloaded via FTP anytime. WordPress has export tools.</p>
+            <p>Yes. Static and PHP projects can be moved from the files you upload. WordPress sites can be exported using the usual WordPress tools.</p>
           </div>
         </details>
-
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
-  <footer class="footer" id="footer">
+  <footer class="footer">
     <div class="container footer__inner">
-      <p class="footer__brand">studentsite.dev — a free spot for your first website</p>
-      <p class="footer__tagline">Not a business. Just one person trying to help.</p>
+      <p class="footer__brand">studentsite.dev and studentsite.online for first student projects</p>
       <nav class="footer__nav" aria-label="Footer navigation">
-        <a href="#plans" class="footer__link">Plans</a>
-        <a href="#apply" class="footer__link">Apply</a>
-        <a href="#faq" class="footer__link">FAQ</a>
+        <a href="#plans" class="footer__link">Hosting options</a>
+        <a href="#limits" class="footer__link">Limits</a>
+        <a href="#apply" class="footer__link">Request form</a>
       </nav>
-      <p class="footer__copy">&copy; 2025 studentsite.dev</p>
+      <p class="footer__copy">&copy; 2026 studentsite.dev</p>
     </div>
   </footer>
 
