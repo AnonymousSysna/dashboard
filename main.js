@@ -47,23 +47,6 @@
     nav.classList.toggle("scrolled", heroSection.getBoundingClientRect().bottom <= 0);
   }
 
-  function setupSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-      link.addEventListener("click", function (event) {
-        const href = link.getAttribute("href");
-        if (!href || href === "#") return;
-
-        const target = document.querySelector(href);
-        if (!target) return;
-
-        event.preventDefault();
-        const navHeight = nav ? nav.offsetHeight : 0;
-        const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top: targetTop, behavior: "smooth" });
-      });
-    });
-  }
-
   function setupFadeUp() {
     const fadeElements = document.querySelectorAll(".fade-up");
 
@@ -279,7 +262,6 @@
 
   buildDomainPills();
   updateNav();
-  setupSmoothScroll();
   setupFadeUp();
   setupForm();
 
